@@ -1,0 +1,41 @@
+;;; init.el-*- lexical-binding: t; -*-
+(setq inhibit-startup-screen t)
+(menu-bar-mode 0)
+(tool-bar-mode 0)
+(scroll-bar-mode 0)
+(line-number-mode 1)
+(column-number-mode 1)
+(auto-save-mode 0)
+(setq indent-tabs-mode nil)
+(setq tab-always-indent 'complete)
+(setq display-line-numbers 'relative)
+(load-theme 'wombat)
+(setq make-backup-files nil)
+
+;; Packages
+(add-to-list 'load-path "~/.config/emacs/init.d/")
+(require 'elpaca-setup)
+(elpaca-wait)
+
+(elpaca goto-chg)
+(setq evil-want-keybinding nil)
+(elpaca evil (evil-mode t))
+(elpaca evil-collection (evil-collection-init))
+(elpaca evil-surround (evil-surround-mode 1))
+(elpaca magit)
+(elpaca avy)
+(elpaca link-hint)
+(elpaca which-key (which-key-mode)
+	(setq which-key-popup-type 'side-window)
+	(setq which-key-side-window-location '(right bottom)))
+(elpaca expand-region)
+(elpaca hl-todo (global-hl-todo-mode 1)) ;; TEST TODO
+(require 'org-setup)
+(require 'minibuffer-setup)
+(require 'completion-setup)
+(require 'lsp-setup)
+(elpaca-wait)
+;; Packages done
+
+(evil-set-undo-system 'undo-redo)
+(require 'keybinds)
