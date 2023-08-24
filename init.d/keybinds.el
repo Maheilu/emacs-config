@@ -20,9 +20,14 @@
 (evil-define-key '(normal insert emacs) 'global (kbd "C-.") #'embark-act)
 (evil-define-key '(normal insert emacs) 'global (kbd "C-;") #'embark-dwim)
 
-(define-key corfu-map (kbd "M-TAB") #'corfu-next)
-(define-key corfu-map (kbd "<backtab>") #'corfu-previous) ;; Shift+Tab
-(define-key corfu-popupinfo-map (kbd "M-<iso-lefttab>") #'corfu-popupinfo-toggle) ;; Alt+Shift+Tab
+(if (equal system-type 'windows-nt)
+    (progn (define-key global-map (kbd "C-<tab>") #'completion-at-point)
+	   (define-key corfu-map (kbd "C-<tab>") #'corfu-next)
+	   (define-key corfu-map (kbd "<backtab>") #'corfu-previous)
+	   (define-key corfu-popupinfo-map (kbd "C-<iso-lefttab>") #'corfu-popupinfo-toggle))
+  (progn (define-key corfu-map (kbd "M-TAB") #'corfu-next)
+	 (define-key corfu-map (kbd "<backtab>") #'corfu-previous) ;; Shift+Tab
+	 (define-key corfu-popupinfo-map (kbd "M-<iso-lefttab>") #'corfu-popupinfo-toggle))) ;; Alt+Shift+Tab
 (define-key corfu-map (kbd "M-q") #'corfu-quick-insert)
 (evil-define-key '(normal insert emacs) 'global (kbd "M-q") #'corfu-candidate-overlay-complete-at-point)
 

@@ -13,7 +13,7 @@
 (setq make-backup-files nil)
 
 ;; Packages
-(add-to-list 'load-path "~/.config/emacs/init.d/")
+(add-to-list 'load-path (expand-file-name "init.d/" user-emacs-directory))
 (require 'elpaca-setup)
 (elpaca-wait)
 
@@ -39,3 +39,4 @@
 
 (evil-set-undo-system 'undo-redo)
 (require 'keybinds)
+(require 'safe-local-vars)
