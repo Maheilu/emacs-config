@@ -38,5 +38,6 @@
 ;; Packages done
 
 (evil-set-undo-system 'undo-redo)
+(require 'util-functions)
 (require 'keybinds)
 (require 'safe-local-vars)
