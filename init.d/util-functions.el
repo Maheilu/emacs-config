@@ -7,4 +7,9 @@
 	    (project-remember-projects-under dir t))
 	  search-dirs)))
 
+(defun open-config ()
+  "öffnet init.el"
+  (interactive)
+  (find-file user-init-file))
+
 (provide 'util-functions)

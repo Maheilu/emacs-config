@@ -3,11 +3,13 @@
 (evil-define-key '(normal emacs) 'global (kbd "-") #'er/contract-region)
 (evil-define-key '(normal emacs) 'global (kbd "C-x l") #'link-hint-open-link)
 (evil-define-key '(normal emacs) 'global (kbd "C-x C-l") #'link-hint-copy-link)
+(evil-define-key '(normal emacs) 'global (kbd "C-x c") #'open-config)
 
 (evil-define-key '(normal emacs) 'global (kbd "C-x n .")
   (lambda () "Open high_level_tasks.org" (interactive)
     (find-file (concat org-directory "/high_level_tasks.org"))))
 
+;; minibuffers etc.
 (define-key vertico-map (kbd "C-q") #'vertico-quick-insert)
 (define-key vertico-map (kbd "M-q") #'vertico-quick-exit)
 (define-key vertico-map (kbd "C-.") #'embark-act)
@@ -20,6 +22,7 @@
 (evil-define-key '(normal insert emacs) 'global (kbd "C-.") #'embark-act)
 (evil-define-key '(normal insert emacs) 'global (kbd "C-,") #'embark-dwim)
 
+;; completion
 (if (equal system-type 'windows-nt)
     (progn (define-key global-map (kbd "C-<tab>") #'completion-at-point)
 	   (define-key corfu-map (kbd "C-<tab>") #'corfu-next)
