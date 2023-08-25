@@ -15,7 +15,7 @@
 (define-key vertico-map (kbd "C-.") #'embark-act)
 (define-key vertico-map (kbd "C-,") #'embark-dwim)
 (evil-define-key '(normal emacs) 'global (kbd "C-h b") #'embark-bindings)
-(evil-define-key '(normal emacs) 'global (kbd "C-x b") #'consult-buffer)
+(evil-define-key '(normal emacs) 'global (kbd "C-x b") #'consult-project-buffer)
 (evil-define-key '(normal emacs) 'global (kbd "C-x C-b") #'consult-buffer)
 (evil-define-key '(normal emacs) 'global (kbd "C-x d") #'consult-dir)
 (evil-define-key '(normal emacs) 'global (kbd "C-x C-d") #'dired-jump)
