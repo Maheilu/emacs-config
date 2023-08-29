@@ -14,6 +14,7 @@
 (define-key vertico-map (kbd "M-q") #'vertico-quick-exit)
 (define-key vertico-map (kbd "C-.") #'embark-act)
 (define-key vertico-map (kbd "C-,") #'embark-dwim)
+(define-key vertico-map (kbd "C-:") #'describe-symbol)
 (evil-define-key '(normal emacs) 'global (kbd "C-h b") #'embark-bindings)
 (evil-define-key '(normal emacs) 'global (kbd "C-x b") #'consult-project-buffer)
 (evil-define-key '(normal emacs) 'global (kbd "C-x C-b") #'consult-buffer)
@@ -21,6 +22,7 @@
 (evil-define-key '(normal emacs) 'global (kbd "C-x C-d") #'dired-jump)
 (evil-define-key '(normal insert emacs) 'global (kbd "C-.") #'embark-act)
 (evil-define-key '(normal insert emacs) 'global (kbd "C-,") #'embark-dwim)
+(evil-define-key '(normal insert emacs) 'global (kbd "C-:") #'describe-symbol)
 
 ;; completion
 (if (equal system-type 'windows-nt)

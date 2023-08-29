@@ -1,4 +1,6 @@
 ;; lsp
+(add-hook 'c++-mode-hook #'eglot-ensure)
+(add-hook 'python-mode-hook #'eglot-ensure)
 (elpaca consult-eglot)
 ;; lisps
 (elpaca parinfer-rust-mode)
@@ -18,8 +20,5 @@
   (add-hook 'c++-ts-mode-hook (lambda () (run-mode-hooks 'c++-mode-hook)))
   (add-hook 'python-ts-mode-hook (lambda () (run-mode-hooks 'python-mode-hook)))
   (customize-set-variable 'treesit-font-lock-level 3))
-
-(add-hook 'c++-mode-hook #'eglot-ensure)
-(add-hook 'python-mode-hook #'eglot-ensure)
 
 (provide 'languages-setup)
