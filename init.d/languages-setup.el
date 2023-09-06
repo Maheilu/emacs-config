@@ -15,7 +15,10 @@
 (with-eval-after-load 'python
   (setq python-shell-interpreter "ipython3"
 	    python-shell-interpreter-args "--simple-prompt")
-  (add-hook 'python-mode-hook (lambda () (setq-local eglot-report-progress nil)))
+  (add-hook 'python-mode-hook (lambda ()
+                                (setq-local eglot-report-progress nil)
+                                ;; python tries really hard to default to 8
+                                (setq tab-width 4)))
   (add-buffer-local-sub-hook 'python-mode-hook 'before-save-hook #'eglot-format-buffer))
 ;; Elixir
 (if use-tree-sitter
