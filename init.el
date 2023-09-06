@@ -33,9 +33,10 @@
 (line-number-mode 1)
 (column-number-mode 1)
 (auto-save-mode 0)
-(setq indent-tabs-mode nil
-      tab-always-indent 'complete
+(setq tab-always-indent 'complete
       display-line-numbers nil)
+(setq-default tab-width 4
+              indent-tabs-mode nil)
 (global-prettify-symbols-mode 1)
 (setq make-backup-files nil
       auto-save-file-name-transforms
@@ -48,5 +49,4 @@
 
 ;; for fun
 (require 'zone)
-(zone-when-idle 120)
 (elpaca selectric-mode)
