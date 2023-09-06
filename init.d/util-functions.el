@@ -3,7 +3,7 @@
     (mapc (lambda (val) (add-to-list list val)) vals))
 
 (defun add-buffer-local-sub-hook (global-hook local-hook func)
-  (add-hook global-hook `(lambda () add-hook ',local-hook #',func nil 'local)))
+  (add-hook global-hook `(lambda () (add-hook ',local-hook #',func nil 'local))))
 
 (defun update-project-list ()
   "aktualisiert project.els bekannte Projekte"

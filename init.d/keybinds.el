@@ -4,6 +4,7 @@
 (evil-define-key '(normal emacs) 'global (kbd "C-x l") #'link-hint-open-link)
 (evil-define-key '(normal emacs) 'global (kbd "C-x C-l") #'link-hint-copy-link)
 (evil-define-key '(normal emacs) 'global (kbd "C-x c") #'open-config)
+(evil-define-key '(normal emacs) 'global (kbd "C-x f") #'consult-flymake)
 
 (evil-define-key '(normal emacs) 'global (kbd "C-x n .")
   (lambda () "Open high_level_tasks.org" (interactive)
