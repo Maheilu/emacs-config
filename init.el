@@ -2,6 +2,7 @@
 ;; PACKAGES
 (add-to-list 'load-path (expand-file-name "init.d/" user-emacs-directory))
 (require 'elpaca-setup)
+(require 'util-functions)
 (elpaca-wait)
 
 (elpaca color-theme-sanityinc-tomorrow (load-theme 'sanityinc-tomorrow-night t))
@@ -43,7 +44,6 @@
       `((".*" ,(expand-file-name ".emacs-auto-saves/" user-emacs-directory) t)))
 
 (evil-set-undo-system 'undo-redo)
-(require 'util-functions)
 (require 'keybinds)
 (require 'safe-local-vars)
 

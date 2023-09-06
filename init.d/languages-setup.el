@@ -14,8 +14,9 @@
 ;; Python
 (with-eval-after-load 'python
   (setq python-shell-interpreter "ipython3"
-	python-shell-interpreter-args "--simple-prompt")
-  (add-hook 'python-mode-hook (lambda () (setq-local eglot-report-progress nil))))
+	    python-shell-interpreter-args "--simple-prompt")
+  (add-hook 'python-mode-hook (lambda () (setq-local eglot-report-progress nil)))
+  (add-buffer-local-sub-hook 'python-mode-hook 'before-save-hook #'eglot-format-buffer))
 ;; Elixir
 (if use-tree-sitter
     (elpaca elixir-ts-mode)
