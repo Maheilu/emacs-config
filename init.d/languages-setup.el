@@ -3,8 +3,10 @@
     (defconst use-tree-sitter t)
   (defconst use-tree-sitter nil))
 
-;; lsp
+;; generic programming
 (mapc (lambda (mode) (add-hook mode #'eglot-ensure))
+      '(c++-mode-hook python-mode-hook elixir-mode-hook))
+(mapc (lambda (mode) (add-hook mode #'display-fill-column-indicator-mode))
       '(c++-mode-hook python-mode-hook elixir-mode-hook))
 (elpaca consult-eglot)
 ;; lisps

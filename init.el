@@ -37,7 +37,8 @@
 (setq tab-always-indent 'complete
       display-line-numbers nil)
 (setq-default tab-width 4
-              indent-tabs-mode nil)
+              indent-tabs-mode nil
+              fill-column 80)
 (global-prettify-symbols-mode 1)
 (setq make-backup-files nil
       auto-save-file-name-transforms
