@@ -1,16 +1,27 @@
+(require 'dash)
+
 ;; tree-sitter part 1
 (if (equal system-type 'gnu/linux)
     (defconst use-tree-sitter t)
   (defconst use-tree-sitter nil))
 
-;; generic programming
-(mapc (lambda (mode) (add-hook mode #'eglot-ensure))
+;; generic programming modes
+(mapc (lambda (hook) (add-hook hook #'eglot-ensure))
       '(c++-mode-hook python-mode-hook elixir-mode-hook))
-(mapc (lambda (mode) (add-hook mode #'display-fill-column-indicator-mode))
-      '(c++-mode-hook python-mode-hook elixir-mode-hook))
+(mapc (lambda (hook)
+        (add-hook hook #'display-fill-column-indicator-mode)
+        (add-hook hook #'highlight-indent-guides-mode))
+      '(c++-mode-hook python-mode-hook elixir-mode-hook emacs-lisp-mode-hook))
+(mapc (-lambda ((feature . hook)) 
+        `(with-eval-after-load ',feature
+          (add-buffer-local-sub-hook ',hook 'before-save-hook #'eglot-format-buffer)))
+      '((python . python-mode-hook)))
 (elpaca consult-eglot)
 ;; lisps
 (elpaca parinfer-rust-mode)
+;; emacs lisp
+(add-hook 'emacs-lisp-mode-hook
+          (lambda () (add-to-list 'prettify-symbols-alist '("-lambda" . ?Λ))))
 ;; R
 (elpaca ess)
 ;; Python
@@ -40,9 +51,11 @@
 	      (c-mode . c-ts-mode)
 	      (python-mode . python-ts-mode)
 	      (elixir-mode . elixir-ts-mode)))
-  (add-hook 'c++-ts-mode-hook (lambda () (run-mode-hooks 'c++-mode-hook)))
-  (add-hook 'python-ts-mode-hook (lambda () (run-mode-hooks 'python-mode-hook)))
-  (add-hook 'elixir-ts-mode-hook (lambda () (run-mode-hooks 'elixir-mode-hook)))
+  (mapc (-lambda ((ts-hook . hook))
+          (add-hook ts-hook `(lambda () (run-mode-hooks ',hook))))
+        '((c++-ts-mode-hook . c++-mode-hook)
+          (python-ts-mode-hook . python-mode-hook)
+          (elixir-ts-mode-hook . elixir-mode-hook)))
   (customize-set-variable 'treesit-font-lock-level 3))
 
 (provide 'languages-setup)

@@ -2,6 +2,8 @@
 ;; PACKAGES
 (add-to-list 'load-path (expand-file-name "init.d/" user-emacs-directory))
 (require 'elpaca-setup)
+(elpaca-wait)
+(elpaca dash)
 (require 'util-functions)
 (elpaca-wait)
 
@@ -16,10 +18,10 @@
 (elpaca avy)
 (elpaca link-hint)
 (elpaca which-key (which-key-mode)
-	(setq which-key-popup-type 'side-window
-	      which-key-side-window-location '(right bottom)))
+        (setq which-key-popup-type 'side-window
+              which-key-side-window-location '(right bottom)))
 (elpaca expand-region)
-(elpaca hl-todo (global-hl-todo-mode 1)) ;; TEST TODO
+(require 'highlighting-setup)
 (require 'org-setup)
 (require 'minibuffer-setup)
 (require 'completion-setup)
