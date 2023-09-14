@@ -3,7 +3,9 @@
   (setq highlight-indent-guides-method 'character
         highlight-indent-guides-auto-enabled nil
         highlight-indent-guides-responsive 'stack)
-  (with-eval-after-load 'highlight-indent-guides
+  (defun set-highlight-indent-guides-faces ()
+    (interactive)
+    (require 'highlight-indent-guides)
     (require 'outline)
     (let ((normal (face-foreground 'fill-column-indicator))
           (top (face-foreground 'outline-2))
@@ -19,5 +21,8 @@
       (mapc (lambda (face) (set-face-foreground face stack))
             '(highlight-indent-guides-stack-odd-face
               highlight-indent-guides-stack-even-face
-              highlight-indent-guides-stack-character-face)))))
+              highlight-indent-guides-stack-character-face))))
+  (add-hook 'enable-theme-hook #'set-highlight-indent-guides-faces)
+  (add-hook 'highlight-indent-guides-mode-hook #'set-highlight-indent-guides-faces))
+
 (provide 'highlighting-setup)

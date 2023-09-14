@@ -18,4 +18,7 @@
   (interactive)
   (find-file user-init-file))
 
+(defvar enable-theme-hook nil "selbstgeschriebener hook für nach dem laden eines Themes")
+(advice-add #'enable-theme :after (lambda (&rest r) (run-hooks 'enable-theme-hook)) '((name . "run-enable-theme-hook")))
+
 (provide 'util-functions)
