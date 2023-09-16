@@ -35,7 +35,7 @@
     (progn (elpaca elixir-ts-mode)
            (with-eval-after-load 'eglot
              (add-to-list 'eglot-server-programs
-                          `((elixir elixir-ts-mode heex-ts-mode) .
+                          `((elixir-mode elixir-ts-mode heex-ts-mode) .
                             ,(eglot-alternatives '("language_server.sh" "~/Builds/lexical/_build/dev/package/lexical/bin/start_lexical.sh"))))))
   (elpaca elixir-mode))
 
