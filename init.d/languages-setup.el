@@ -32,19 +32,14 @@
   (add-buffer-local-sub-hook 'python-mode-hook 'before-save-hook #'eglot-format-buffer))
 ;; Elixir
 (if use-tree-sitter
-<<<<<<< HEAD
-    (elpaca elixir-ts-mode)
-  (elpaca elixir-mode
-    (require 'eglot)
-    (add-to-list 'eglot-server-programs '(elixir-mode "~/../../Deps/elixir-ls/language_server.bat"))))
-=======
     (progn (elpaca elixir-ts-mode)
            (with-eval-after-load 'eglot
              (add-to-list 'eglot-server-programs
                           `((elixir-mode elixir-ts-mode heex-ts-mode) .
                             ,(eglot-alternatives '("language_server.sh" "~/Builds/lexical/_build/dev/package/lexical/bin/start_lexical.sh"))))))
-  (elpaca elixir-mode))
->>>>>>> 05e75f16b418357e69e7dcf16c0c489bad077e7e
+  (elpaca elixir-mode
+    (require 'eglot)
+    (add-to-list 'eglot-server-programs '(elixir-mode "~/../../Deps/elixir-ls/language_server.bat"))))
 
 ;; tree-sitter
 (when use-tree-sitter 
