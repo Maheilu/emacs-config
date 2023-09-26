@@ -44,7 +44,9 @@
 (global-prettify-symbols-mode 1)
 (setq make-backup-files nil
       auto-save-file-name-transforms
-      `((".*" ,(expand-file-name ".emacs-auto-saves/" user-emacs-directory) t)))
+      `((".*" ,(expand-file-name ".emacs-auto-saves/" user-emacs-directory) t))
+      explicit-shell-file-name "/usr/bin/fish")
+
 
 (evil-set-undo-system 'undo-redo)
 (require 'keybinds)
