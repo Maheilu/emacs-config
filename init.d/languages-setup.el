@@ -5,7 +5,7 @@
     (defconst use-tree-sitter t)
   (defconst use-tree-sitter nil))
 
-;; generic programming modes
+;; multiple programming modes
 (mapc (lambda (hook) (add-hook hook #'eglot-ensure))
       '(c++-mode-hook python-mode-hook elixir-mode-hook))
 (mapc (lambda (hook)
@@ -36,7 +36,9 @@
 ;; Elixir
 (if use-tree-sitter
     (elpaca elixir-ts-mode)
-  (elpaca elixir-mode))
+  (elpaca elixir-mode
+    (require 'eglot)
+    (add-to-list 'eglot-server-programs '(elixir-mode "~/../../Deps/elixir-ls/language_server.bat"))))
 
 ;; tree-sitter part 2
 (when use-tree-sitter 

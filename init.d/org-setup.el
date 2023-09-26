@@ -34,4 +34,5 @@
 	  (:name "Top-Priority"
                  :priority "A")
 	  (:priority<= "B" :order 1))))
+
 (provide 'org-setup)
