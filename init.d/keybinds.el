@@ -5,10 +5,22 @@
 (evil-define-key '(normal emacs) 'global (kbd "C-x C-l") #'link-hint-copy-link)
 (evil-define-key '(normal emacs) 'global (kbd "C-x c") #'open-config)
 (evil-define-key '(normal emacs) 'global (kbd "C-x f") #'consult-flymake)
-
+(evil-define-key '(normal emacs) 'global (kbd "C-x x b") #'magit-blame)
 (evil-define-key '(normal emacs) 'global (kbd "C-x n .")
   (lambda () "Open high_level_tasks.org" (interactive)
     (find-file (concat org-directory "/high_level_tasks.org"))))
+
+;; avy
+(evil-define-key '(normal insert emacs) 'global (kbd "M-a") #'avy-goto-char-timer)
+(evil-define-key '(normal insert emacs) 'global (kbd "M-l") #'avy-goto-line)
+(evil-define-key '(normal insert emacs) 'org-mode-map (kbd "M-h") #'avy-org-goto-heading-timer)
+(evil-define-key '(normal emacs) 'global (kbd "] a") #'avy-next)
+(evil-define-key '(normal emacs) 'global (kbd "[ a") #'avy-prev)
+(with-eval-after-load 'avy
+  (setq avy-timeout-seconds 0.1        ;; Melee Ganon jumpsquat; aka forever
+        avy-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l)
+        avy-style 'de-bruijn
+        avy-all-windows t))
 
 ;; minibuffers etc.
 (define-key vertico-map (kbd "C-q") #'vertico-quick-insert)
@@ -27,14 +39,20 @@
 
 ;; completion
 (if (equal system-type 'windows-nt)
-    (progn (define-key global-map (kbd "C-<tab>") #'completion-at-point)
-	   (define-key corfu-map (kbd "C-<tab>") #'corfu-next)
-	   (define-key corfu-map (kbd "<backtab>") #'corfu-previous)
-	   (define-key corfu-popupinfo-map (kbd "C-<iso-lefttab>") #'corfu-popupinfo-toggle))
-  (progn (define-key corfu-map (kbd "M-TAB") #'corfu-next)
-	 (define-key corfu-map (kbd "<backtab>") #'corfu-previous) ;; Shift+Tab
-	 (define-key corfu-popupinfo-map (kbd "M-<iso-lefttab>") #'corfu-popupinfo-toggle))) ;; Alt+Shift+Tab
+    (progn
+      (define-key global-map (kbd "C-<tab>") #'completion-at-point)
+	  (define-key corfu-map (kbd "C-<tab>") #'corfu-next)
+	  (define-key corfu-map (kbd "<backtab>") #'corfu-previous)
+	  (define-key corfu-popupinfo-map (kbd "C-<iso-lefttab>") #'corfu-popupinfo-toggle))
+  (progn
+    (define-key global-map (kbd "M-TAB") #'completion-at-point)
+    (define-key corfu-map (kbd "M-TAB") #'corfu-next)
+	(define-key corfu-map (kbd "<backtab>") #'corfu-previous) ;; Shift+Tab
+	(define-key corfu-popupinfo-map (kbd "M-<iso-lefttab>") #'corfu-popupinfo-toggle))) ;; Alt+Shift+Tab
 (define-key corfu-map (kbd "M-q") #'corfu-quick-insert)
 (evil-define-key '(normal insert emacs) 'global (kbd "M-q") #'corfu-candidate-overlay-complete-at-point)
+
+(evil-define-key '(normal emacs) 'org-mode-map (kbd "H") #'org-shiftleft)
+(evil-define-key '(normal emacs) 'org-mode-map (kbd "L") #'org-shiftright)
 
 (provide 'keybinds)

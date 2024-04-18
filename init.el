@@ -1,5 +1,5 @@
 ;;; init.el-*- lexical-binding: t; -*-
-;; PACKAGES
+;; Packages
 (add-to-list 'load-path (expand-file-name "init.d/" user-emacs-directory))
 (require 'elpaca-setup)
 (elpaca-wait)
@@ -9,7 +9,8 @@
 
 (elpaca color-theme-sanityinc-tomorrow (load-theme 'sanityinc-tomorrow-night t))
 (elpaca goto-chg)
-(setq evil-want-keybinding nil)
+(setq evil-want-keybinding nil
+      evil-want-integration t)
 (elpaca evil (evil-mode t))
 (elpaca evil-collection (evil-collection-init))
 (elpaca evil-surround (global-evil-surround-mode 1))
@@ -21,6 +22,8 @@
         (setq which-key-popup-type 'side-window
               which-key-side-window-location '(right bottom)))
 (elpaca expand-region)
+(elpaca markdown-mode)
+(elpaca nov (add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode)))
 (require 'highlighting-setup)
 (require 'org-setup)
 (require 'minibuffer-setup)
@@ -45,13 +48,10 @@
 (setq make-backup-files nil
       auto-save-file-name-transforms
       `((".*" ,(expand-file-name ".emacs-auto-saves/" user-emacs-directory) t))
-      explicit-shell-file-name "/usr/bin/fish")
-
-
+      explicit-shell-file-name "/usr/bin/elvish")
 (evil-set-undo-system 'undo-redo)
 (require 'keybinds)
 (require 'safe-local-vars)
 
-;; for fun
-(require 'zone)
-(elpaca selectric-mode)
+(provide 'init)
+ 

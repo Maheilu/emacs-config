@@ -1,3 +1,4 @@
+(setq eldoc-echo-area-prefer-doc-buffer t)
 (elpaca vertico
   (vertico-mode t)
   (add-to-list 'load-path (expand-file-name "vertico/extensions" elpaca-repos-directory))
