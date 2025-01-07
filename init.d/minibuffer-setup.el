@@ -11,6 +11,5 @@
         completion-category-overrides '((file (styles basic partial-completion)))))
 (elpaca embark-consult)
 (elpaca consult-org-roam (consult-org-roam-mode 1))
-(elpaca consult-dir)
 
 (provide 'minibuffer-setup)

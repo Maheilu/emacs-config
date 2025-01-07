@@ -14,6 +14,7 @@
 (elpaca evil (evil-mode t))
 (elpaca evil-collection (evil-collection-init))
 (elpaca evil-surround (global-evil-surround-mode 1))
+(elpaca transient) ;; upgrade to >= 5.0 for magit
 (elpaca magit)
 (elpaca magit-todos)
 (elpaca avy)
@@ -48,10 +49,9 @@
 (setq make-backup-files nil
       auto-save-file-name-transforms
       `((".*" ,(expand-file-name ".emacs-auto-saves/" user-emacs-directory) t))
-      explicit-shell-file-name "/usr/bin/elvish")
+      explicit-shell-file-name "/usr/bin/bash")
 (evil-set-undo-system 'undo-redo)
 (require 'keybinds)
 (require 'safe-local-vars)
 
 (provide 'init)
- 

@@ -1,21 +1,37 @@
-(evil-define-key '(normal emacs) 'global (kbd "C-x C-k") #'kill-current-buffer) 
-(evil-define-key '(normal emacs) 'global (kbd "+") #'er/expand-region)
-(evil-define-key '(normal emacs) 'global (kbd "-") #'er/contract-region)
-(evil-define-key '(normal emacs) 'global (kbd "C-x l") #'link-hint-open-link)
-(evil-define-key '(normal emacs) 'global (kbd "C-x C-l") #'link-hint-copy-link)
-(evil-define-key '(normal emacs) 'global (kbd "C-x c") #'open-config)
-(evil-define-key '(normal emacs) 'global (kbd "C-x f") #'consult-flymake)
-(evil-define-key '(normal emacs) 'global (kbd "C-x x b") #'magit-blame)
-(evil-define-key '(normal emacs) 'global (kbd "C-x n .")
-  (lambda () "Open high_level_tasks.org" (interactive)
-    (find-file (concat org-directory "/high_level_tasks.org"))))
+(evil-define-key '(normal emacs) 'global
+  (kbd "C-x C-k") #'kill-current-buffer
+  (kbd "+") #'er/expand-region
+  (kbd "-") #'er/contract-region
+  (kbd "C-l l") #'link-hint-open-link
+  (kbd "C-l C-l") #'link-hint-copy-link
+  (kbd "C-l p") #'link-hint-open-link-at-point
+  (kbd "C-l C-p") #'link-hint-copy-link-at-point
+  (kbd "C-x c") #'open-config
+  (kbd "C-x C") #'open-init.d
+  (kbd "C-x f") #'consult-flymake
+  (kbd "C-j") #'default-indent-new-line
+  (kbd "C-x n .") (defun open-high-level-tasks () "Open high_level_tasks.org"
+                         (interactive)
+                         (find-file (concat org-directory "/high_level_tasks.org")))
+  (kbd "M-i") #'imenu
+  (kbd "M-I") #'consult-imenu)
+
+;; transpose
+(evil-define-key '(normal emacs) 'global
+  (kbd "t c") #'transpose-chars
+  (kbd "t l") #'transpose-lines
+  (kbd "t w") #'transpose-words
+  (kbd "t s") #'transpose-sexps)
 
 ;; avy
-(evil-define-key '(normal insert emacs) 'global (kbd "M-a") #'avy-goto-char-timer)
-(evil-define-key '(normal insert emacs) 'global (kbd "M-l") #'avy-goto-line)
-(evil-define-key '(normal insert emacs) 'org-mode-map (kbd "M-h") #'avy-org-goto-heading-timer)
-(evil-define-key '(normal emacs) 'global (kbd "] a") #'avy-next)
-(evil-define-key '(normal emacs) 'global (kbd "[ a") #'avy-prev)
+(evil-define-key '(normal insert emacs) 'global
+  (kbd "M-a") #'avy-goto-char-timer
+  (kbd "M-l") #'avy-goto-line)
+(evil-define-key '(normal insert emacs) 'org-mode-map
+  (kbd "M-h") #'avy-org-goto-heading-timer)
+(evil-define-key '(normal emacs) 'global
+  (kbd "] a") #'avy-next
+  (kbd "[ a") #'avy-prev)
 (with-eval-after-load 'avy
   (setq avy-timeout-seconds 0.1        ;; Melee Ganon jumpsquat; aka forever
         avy-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l)
@@ -23,36 +39,55 @@
         avy-all-windows t))
 
 ;; minibuffers etc.
-(define-key vertico-map (kbd "C-q") #'vertico-quick-insert)
-(define-key vertico-map (kbd "M-q") #'vertico-quick-exit)
-(define-key vertico-map (kbd "C-.") #'embark-act)
-(define-key vertico-map (kbd "C-,") #'embark-dwim)
-(define-key vertico-map (kbd "C-:") #'describe-symbol)
-(evil-define-key '(normal emacs) 'global (kbd "C-h b") #'embark-bindings)
-(evil-define-key '(normal emacs) 'global (kbd "C-x b") #'consult-project-buffer)
-(evil-define-key '(normal emacs) 'global (kbd "C-x C-b") #'consult-buffer)
-(evil-define-key '(normal emacs) 'global (kbd "C-x d") #'consult-dir)
-(evil-define-key '(normal emacs) 'global (kbd "C-x C-d") #'dired-jump)
-(evil-define-key '(normal insert emacs) 'global (kbd "C-.") #'embark-act)
-(evil-define-key '(normal insert emacs) 'global (kbd "C-,") #'embark-dwim)
-(evil-define-key '(normal insert emacs) 'global (kbd "C-:") #'describe-symbol)
+(evil-define-key nil vertico-map
+  (kbd "C-q") #'vertico-quick-insert
+  (kbd "M-q") #'vertico-quick-exit
+  (kbd "C-.") #'embark-act
+  (kbd "C-,") #'embark-dwim
+  (kbd "C-:") #'describe-symbol)
+(evil-define-key '(normal emacs) 'global
+  (kbd "C-h b") #'embark-bindings
+  (kbd "C-x b") #'consult-project-buffer
+  (kbd "C-x C-b") #'consult-buffer
+  (kbd "C-x d") #'consult-dir
+  (kbd "C-x C-d") #'dired-jump)
+(evil-define-key '(normal insert emacs) 'global (kbd "C-.") #'embark-act
+  (kbd "C-,") #'embark-dwim
+  (kbd "C-:") #'describe-symbol)
+
+;; mode toggles
+(evil-define-key '(normal emacs) 'global (kbd "C-x m b") #'magit-blame)
 
 ;; completion
 (if (equal system-type 'windows-nt)
     (progn
-      (define-key global-map (kbd "C-<tab>") #'completion-at-point)
-	  (define-key corfu-map (kbd "C-<tab>") #'corfu-next)
-	  (define-key corfu-map (kbd "<backtab>") #'corfu-previous)
-	  (define-key corfu-popupinfo-map (kbd "C-<iso-lefttab>") #'corfu-popupinfo-toggle))
+      (evil-define-key '(normal insert emacs) 'global (kbd "M-q") #'completion-at-point)
+	  (evil-define-key nil corfu-popupinfo-map (kbd "C-<iso-lefttab>") #'corfu-popupinfo-toggle))
   (progn
-    (define-key global-map (kbd "M-TAB") #'completion-at-point)
-    (define-key corfu-map (kbd "M-TAB") #'corfu-next)
-	(define-key corfu-map (kbd "<backtab>") #'corfu-previous) ;; Shift+Tab
-	(define-key corfu-popupinfo-map (kbd "M-<iso-lefttab>") #'corfu-popupinfo-toggle))) ;; Alt+Shift+Tab
-(define-key corfu-map (kbd "M-q") #'corfu-quick-insert)
-(evil-define-key '(normal insert emacs) 'global (kbd "M-q") #'corfu-candidate-overlay-complete-at-point)
+    (evil-define-key '(normal insert emacs) 'global
+      (kbd "M-<tab>") #'completion-at-point
+      (kbd "M-q") #'corfu-candidate-overlay-complete-at-point)
+	(evil-define-key nil corfu-popupinfo-map (kbd "M-S-<iso-lefttab>") #'corfu-popupinfo-end))) ;; Alt+Shift+Tab
+(evil-define-key nil corfu-map
+  (kbd "<tab>") #'corfu-next
+  (kbd "<backtab>") #'corfu-previous ;; Shift+Tab
+  (kbd "M-q") #'corfu-quick-insert)
 
-(evil-define-key '(normal emacs) 'org-mode-map (kbd "H") #'org-shiftleft)
-(evil-define-key '(normal emacs) 'org-mode-map (kbd "L") #'org-shiftright)
+;; org agenda mode
+(evil-define-key '(normal emacs) org-agenda-mode-map
+  (kbd "h") #'left-char
+  (kbd "j") #'org-agenda-next-line
+  (kbd "k") #'org-agenda-previous-line
+  (kbd "l") #'right-char
+  (kbd "w") #'evil-forward-word-begin
+  (kbd "e") #'evil-forward-word-end
+  (kbd "b") #'evil-backward-word-begin
+  (kbd "F") #'org-agenda-earlier)
+
+;; dired mode
+(with-eval-after-load 'dired
+  (evil-define-key '(normal emacs) dired-mode-map
+    (kbd "SPC") #'dired-find-file
+    (kbd "S-SPC") #'dired-up-directory))
 
 (provide 'keybinds)

@@ -18,6 +18,25 @@
   (interactive)
   (find-file user-init-file))
 
+(defun open-init.d ()
+  "find-file in init.d"
+  (interactive)
+  ;; TODO put init.d in find file completion
+  (find-file (concat user-emacs-directory "init.d/")))
+
+(defun gdb-in-new-frame ()
+  "öffnet aktiven Buffer in neuem Frame und startet gdb-many-windows"
+  (interactive)
+  (select-frame (make-frame))
+  (call-interactively #'gdb)
+  (gdb-many-windows))
+
+(defun eshell-in-new-frame ()
+  "öffnet eshell in neuem Frame"
+  (interactive)
+  (select-frame (make-frame))
+  (call-interactively #'eshell))
+
 (defvar enable-theme-hook nil "selbstgeschriebener hook für nach dem laden eines Themes")
 (advice-add #'enable-theme :after (lambda (&rest r) (run-hooks 'enable-theme-hook)) '((name . "run-enable-theme-hook")))
 
