@@ -60,6 +60,11 @@
     (add-to-list 'eglot-server-programs
                  (cons '(haskell-mode)
                        '("haskell-language-server-wrapper" "lsp")))))
+;; Ada
+(elpaca ada-ts-mode
+  (with-eval-after-load 'eglot
+    (add-to-list 'eglot-server-programs
+                 '(ada-ts-mode . "ada_language_server"))))
 ;; YAML
 (elpaca yaml-pro
   (if use-tree-sitter
