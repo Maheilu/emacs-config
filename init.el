@@ -14,9 +14,6 @@
 (elpaca evil (evil-mode t))
 (elpaca evil-collection (evil-collection-init))
 (elpaca evil-surround (global-evil-surround-mode 1))
-(elpaca transient) ;; upgrade to >= 5.0 for magit
-(elpaca magit)
-(elpaca magit-todos)
 (elpaca avy)
 (elpaca link-hint)
 (elpaca which-key (which-key-mode)

@@ -55,19 +55,12 @@
   (kbd "C-,") #'embark-dwim
   (kbd "C-:") #'describe-symbol)
 
-;; mode toggles
-(evil-define-key '(normal emacs) 'global (kbd "C-x m b") #'magit-blame)
-
 ;; completion
 (if (equal system-type 'windows-nt)
-    (progn
-      (evil-define-key '(normal insert emacs) 'global (kbd "M-q") #'completion-at-point)
-	  (evil-define-key nil corfu-popupinfo-map (kbd "C-<iso-lefttab>") #'corfu-popupinfo-toggle))
-  (progn
-    (evil-define-key '(normal insert emacs) 'global
-      (kbd "M-<tab>") #'completion-at-point
-      (kbd "M-q") #'corfu-candidate-overlay-complete-at-point)
-	(evil-define-key nil corfu-popupinfo-map (kbd "M-S-<iso-lefttab>") #'corfu-popupinfo-end))) ;; Alt+Shift+Tab
+    (evil-define-key '(normal insert emacs) 'global (kbd "M-q") #'completion-at-point)
+  (evil-define-key '(normal insert emacs) 'global
+    (kbd "M-<tab>") #'completion-at-point
+    (kbd "M-q") #'corfu-candidate-overlay-complete-at-point))
 (evil-define-key nil corfu-map
   (kbd "<tab>") #'corfu-next
   (kbd "<backtab>") #'corfu-previous ;; Shift+Tab

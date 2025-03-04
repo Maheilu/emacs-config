@@ -32,6 +32,7 @@
           (lambda () (add-to-list 'prettify-symbols-alist '("-lambda" . ?Λ))))
 ;; \LaTeX
 (elpaca auctex
+  (require 'auctex) ; FIXME
   (setq TeX-parse-self t) ; Enable parse on load.
   (setq TeX-auto-save t)) ; Enable parse on save.
 ;; R
@@ -69,6 +70,8 @@
                      (if use-tree-sitter
                          #'yaml-ts-mode
                        #'yaml-mode))))
+;; GLSL
+(elpaca glsl-mode)
 
 ;; tree-sitter
 (when use-tree-sitter 
