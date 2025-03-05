@@ -3,38 +3,46 @@
 (defconst use-tree-sitter (equal system-type 'gnu/linux))
 
 ;; multiple programming modes
-(mapc (lambda (hook)
-        (add-hook hook #'eglot-ensure))
-      '(c++-mode-hook rust-mode-hook python-mode-hook
-        elixir-mode-hook haskell-mode-hook))
-(mapc (lambda (hook)
-        (add-hook hook #'display-fill-column-indicator-mode)
-        (add-hook hook #'highlight-indent-guides-mode)
-        (add-hook hook #'hs-minor-mode))
-      '(c++-mode-hook rust-mode-hook python-mode-hook
-        elixir-mode-hook emacs-lisp-mode-hook haskell-mode-hook))
-(mapc (lambda (hook) (add-buffer-local-sub-hook hook 'before-save-hook #'eglot-format-buffer))
+(--map (add-hook it #'eglot-ensure)
+       '(c++-mode-hook
+         rust-mode-hook
+         python-mode-hook
+         elixir-mode-hook
+         haskell-mode-hook))
+(--map (progn (add-hook it #'display-fill-column-indicator-mode)
+              (add-hook it #'highlight-indent-guides-mode)
+              (add-hook it #'hs-minor-mode))
+       '(c++-mode-hook
+         rust-mode-hook
+         python-mode-hook
+         elixir-mode-hook
+         emacs-lisp-mode-hook
+         haskell-mode-hook))
+(--map (add-buffer-local-sub-hook it 'before-save-hook #'eglot-format-buffer)
       '(python-mode-hook c++-mode-hook))
+
 ;; eglot
 (elpaca consult-eglot)
 (with-eval-after-load 'eglot (setq eglot-autoshutdown t))
+
 ;; C++
-(mapc (lambda (assoc)
-        (add-to-list 'auto-mode-alist assoc))
-      (list '("\\.cppm\\'" . c++-mode)
-            (if use-tree-sitter
-                '("CMakeLists.txt" . cmake-ts-mode)
-              '("CMakeLists.txt" . nil))))
+(--map (add-to-list 'auto-mode-alist it)
+       (list '("\\.cppm\\'" . c++-mode)
+             (if use-tree-sitter
+                 '("CMakeLists.txt" . cmake-ts-mode)
+               '("CMakeLists.txt" . nil))))
 (with-eval-after-load 'eglot
   (require 'clangd-setup))
 ;; emacs lisp
 (add-hook 'emacs-lisp-mode-hook
           (lambda () (add-to-list 'prettify-symbols-alist '("-lambda" . ?Λ))))
+
 ;; \LaTeX
 (elpaca auctex
-  (require 'auctex) ; FIXME
-  (setq TeX-parse-self t) ; Enable parse on load.
-  (setq TeX-auto-save t)) ; Enable parse on save.
+  (require 'auctex)
+  (setq TeX-parse-self t ; Enable parse on load.
+        TeX-auto-save t) ; Enable parse on save.
+  (add-hook 'LaTeX-mode-hook #'flyspell-mode))
 ;; R
 (elpaca ess)
 ;; Python

@@ -48,6 +48,7 @@
       `((".*" ,(expand-file-name ".emacs-auto-saves/" user-emacs-directory) t))
       explicit-shell-file-name "/usr/bin/bash")
 (evil-set-undo-system 'undo-redo)
+(add-to-list 'default-frame-alist '(font . "JuliaMono Light"))
 (require 'keybinds)
 (require 'safe-local-vars)
 
