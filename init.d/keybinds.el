@@ -86,7 +86,7 @@
 
 ;; outline mode
 ; disable some evil-collection bindings
-(evil-define-minor-mode-key ('normal emacs) 'outline-minor-mode
+(evil-define-minor-mode-key '(normal emacs) 'outline-minor-mode
   "[[" nil
   "]]" nil
   (kbd "M-h") nil

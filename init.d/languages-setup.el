@@ -52,7 +52,7 @@
 (with-eval-after-load 'python
   (setq python-shell-interpreter "ipython3"
         python-shell-interpreter-args "--simple-prompt")
-  (add-user-hook 'python-mode-hook
+  (add-user-hook python-mode-hook
     (setq-local eglot-report-progress nil)
     ;; python-mode tries really hard to default to 8
     (setq tab-width 4)))
