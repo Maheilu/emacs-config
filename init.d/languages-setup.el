@@ -9,17 +9,14 @@
          python-mode-hook
          elixir-mode-hook
          haskell-mode-hook))
-(--map (progn (add-hook it #'display-fill-column-indicator-mode)
-              (add-hook it #'highlight-indent-guides-mode)
-              (add-hook it #'hs-minor-mode))
-       '(c++-mode-hook
-         rust-mode-hook
-         python-mode-hook
-         elixir-mode-hook
-         emacs-lisp-mode-hook
-         haskell-mode-hook))
-(--map (add-buffer-local-sub-hook it 'before-save-hook #'eglot-format-buffer)
-      '(python-mode-hook c++-mode-hook))
+(--map (add-hook #'prog-mode-hook it)
+       (list #'display-fill-column-indicator-mode
+              #'highlight-indent-guides-mode
+              #'hs-minor-mode))
+(defun push-hook-eglot-format-before-save ()
+  (add-hook 'before-save-hook #'eglot-format-buffer 0 'local))
+(--map (add-hook it #'push-hook-eglot-format-before-save)
+       '(python-mode-hook c++-mode-hook))
 
 ;; eglot
 (elpaca consult-eglot)
@@ -34,25 +31,31 @@
 (with-eval-after-load 'eglot
   (require 'clangd-setup))
 ;; emacs lisp
-(add-hook 'emacs-lisp-mode-hook
-          (lambda () (add-to-list 'prettify-symbols-alist '("-lambda" . ?Λ))))
+(add-user-hook emacs-lisp-mode-hook
+          (add-to-list 'prettify-symbols-alist '("-lambda" . ?Λ)))
 
 ;; \LaTeX
 (elpaca auctex
   (require 'auctex)
-  (setq TeX-parse-self t ; Enable parse on load.
-        TeX-auto-save t) ; Enable parse on save.
-  (add-hook 'LaTeX-mode-hook #'flyspell-mode))
+  (setq TeX-parse-self t                ; Enable parse on load.
+        TeX-auto-save t)                ; Enable parse on save.
+  (add-hook 'TeX-after-compilation-finished-functions
+            #'TeX-revert-document-buffer)
+  (--map (add-hook 'LaTeX-mode-hook it)
+         (list #'outline-minor-mode
+               #'display-fill-column-indicator-mode))
+  (when (equal system-type 'gnu/linux)
+    (add-hook 'LaTeX-mode-hook #'flyspell-mode)))
 ;; R
 (elpaca ess)
 ;; Python
 (with-eval-after-load 'python
   (setq python-shell-interpreter "ipython3"
         python-shell-interpreter-args "--simple-prompt")
-  (add-hook 'python-mode-hook (lambda ()
-                                (setq-local eglot-report-progress nil)
-                                ;; python-mode tries really hard to default to 8
-                                (setq tab-width 4))))
+  (add-user-hook 'python-mode-hook
+    (setq-local eglot-report-progress nil)
+    ;; python-mode tries really hard to default to 8
+    (setq tab-width 4)))
 ;; Julia
 (elpaca julia-mode)
 ;; Common Lisp

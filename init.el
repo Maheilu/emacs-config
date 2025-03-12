@@ -8,7 +8,6 @@
 (elpaca-wait)
 
 (elpaca color-theme-sanityinc-tomorrow (load-theme 'sanityinc-tomorrow-night t))
-(elpaca goto-chg)
 (setq evil-want-keybinding nil
       evil-want-integration t)
 (elpaca evil (evil-mode t))
@@ -38,7 +37,8 @@
 (column-number-mode 1)
 (auto-save-mode 0)
 (setq tab-always-indent 'complete
-      display-line-numbers nil)
+      display-line-numbers nil
+      project-vc-extra-root-markers '(".project.el"))
 (setq-default tab-width 4
               indent-tabs-mode nil
               fill-column 80)

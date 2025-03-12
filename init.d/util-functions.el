@@ -2,8 +2,10 @@
 (defun add-multiple-to-list (list &rest vals)
     (mapc (lambda (val) (add-to-list list val)) vals))
 
-(defun add-buffer-local-sub-hook (global-hook local-hook func)
-  (add-hook global-hook `(lambda () (add-hook ',local-hook #',func nil 'local))))
+(defmacro add-user-hook (hook &rest body)
+  (declare (indent 1))
+  (let ((sym (intern (format "user-%s-function" (symbol-name hook)))))
+    `(add-hook ',hook (defun ,sym () ,@body))))
 
 (defun update-project-list ()
   "aktualisiert project.els bekannte Projekte"

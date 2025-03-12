@@ -9,12 +9,13 @@
   (kbd "C-x c") #'open-config
   (kbd "C-x C") #'open-init.d
   (kbd "C-x f") #'consult-flymake
-  (kbd "C-j") #'default-indent-new-line
   (kbd "C-x n .") (defun open-high-level-tasks () "Open high_level_tasks.org"
                          (interactive)
                          (find-file (concat org-directory "/high_level_tasks.org")))
-  (kbd "M-i") #'imenu
-  (kbd "M-I") #'consult-imenu)
+  (kbd "M-I") #'imenu
+  (kbd "M-i") #'consult-imenu)
+(evil-define-key '(normal insert emacs) 'global
+  (kbd "M-e") #'expand-abbrev)
 
 ;; transpose
 (evil-define-key '(normal emacs) 'global
@@ -34,9 +35,9 @@
   (kbd "[ a") #'avy-prev)
 (with-eval-after-load 'avy
   (setq avy-timeout-seconds 0.1        ;; Melee Ganon jumpsquat; aka forever
-        avy-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l)
+        avy-keys '(?w ?a ?s ?d ?h ?j ?k ?l ? )
         avy-style 'de-bruijn
-        avy-all-windows t))
+        avy-all-windows 'all-frames))
 
 ;; minibuffers etc.
 (evil-define-key nil vertico-map
@@ -82,5 +83,15 @@
   (evil-define-key '(normal emacs) dired-mode-map
     (kbd "SPC") #'dired-find-file
     (kbd "S-SPC") #'dired-up-directory))
+
+;; outline mode
+; disable some evil-collection bindings
+(evil-define-minor-mode-key ('normal emacs) 'outline-minor-mode
+  "[[" nil
+  "]]" nil
+  (kbd "M-h") nil
+  (kbd "M-j") nil
+  (kbd "M-k") nil
+  (kbd "M-l") nil)
 
 (provide 'keybinds)
